@@ -178,7 +178,7 @@ class SequenceFolder(data.Dataset):
 			ref_depth[nanmask] = 1
 			ref_depth = ref_depth / sample['scale']
 			ref_depths.append(ref_depth)
-		
+
 		ref_imgs = [load_as_float(ref_img) for ref_img in sample['ref_imgs']]
 		ref_poses = sample['ref_poses']
 		if self.transform is not None:

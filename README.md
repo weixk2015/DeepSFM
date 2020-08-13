@@ -198,6 +198,8 @@ python test.py ./dataset/train/ --mindepth 0.5 --nlabel 64 --pose_init I1 --dept
 python pose_test.py ./dataset/train/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init I1 --depth_init I1 --save I2
 ...
 ``` 
+The pretrained models can be downloaded at [Google drive](https://drive.google.com/drive/folders/1GGzFKaNV39M9Z8XlqMIPuoCsvpA-wgVY?usp=sharing).
+Due to the stochastic nature during training. The performance of the pre-trained model may be slightly different from it in the paper.
 
 ## Acknowledgments
 
