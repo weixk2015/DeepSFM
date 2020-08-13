@@ -1,6 +1,6 @@
 # DeepSFM
 
-This is an PyTorch implementation of the ECCV2020 (Oral) paper 
+This is a PyTorch implementation of the ECCV2020 (Oral) paper 
 "DeepSFM: Structure From Motion Via Deep Bundle Adjustment".
 
 In this work, we design a physical driven architecture, namely DeepSFM, 
