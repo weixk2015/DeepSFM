@@ -1,6 +1,6 @@
 # DeepSFM
 
-This is an PyTorch implementation of the ECCV'20 (Oral) paper 
+This is an PyTorch implementation of the ECCV2020 (Oral) paper 
 "DeepSFM: Structure From Motion Via Deep Bundle Adjustment".
 
 In this work, we design a physical driven architecture, namely DeepSFM, 
@@ -13,7 +13,7 @@ which consists of two cost volume based architectures for depth and
 Our framework receives frames of a scene from different viewpoints, and produces
 depth maps and camera poses for all frames. 
 
-Please check our [paper](https://arxiv.org/abs/1912.09697) 
+Please check the [paper](https://arxiv.org/abs/1912.09697) 
 and the [project webpage](https://weixk2015.github.io/DeepSFM/) for more details.
 
 If you have any question, please contact Xingkui Wei <xkwei19@fudan.edu.cn>.
