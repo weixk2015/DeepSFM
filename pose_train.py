@@ -15,28 +15,26 @@ from models import PoseNet
 from pose_sequence_folders import SequenceFolder
 from utils import save_checkpoint, save_path_formatter, adjust_learning_rate
 
-parser = argparse.ArgumentParser(description='Structure from Motion Learner training on KITTI and CityScapes Dataset',
+parser = argparse.ArgumentParser(description='DeepSFM pose subnet train script',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('data', metavar='DIR',
                     help='path to dataset')
-parser.add_argument('--dataset-format', default='sequential', metavar='STR',
-                    help='dataset format, stacked: stacked frames (from original TensorFlow code) \
-                    sequential: sequential folders (easier to convert to with a non KITTI/Cityscape dataset')
+
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers')
-parser.add_argument('--epochs', default=1000, type=int, metavar='N',  # 10
+parser.add_argument('--epochs', default=10, type=int, metavar='N',  # 10
                     help='number of total epochs to run')
 parser.add_argument('--epoch-size', default=0, type=int, metavar='N',
                     help='manual epoch size (will match dataset size if not set)')
-parser.add_argument('-b', '--batch-size', default=2, type=int,  # 6
+parser.add_argument('-b', '--batch-size', default=6, type=int,  # 6
                     metavar='N', help='mini-batch size')
 parser.add_argument('--lr', '--learning-rate', default=2e-5, type=float,
                     metavar='LR', help='initial learning rate')
 parser.add_argument('--geo', '--geo-cost', default=True, type=bool,
                     metavar='GC', help='whether add geometry cost')
-parser.add_argument('--noise', '--pose-noise', default=0, type=bool,
-                    metavar='PN', help='whether add geometry cost')
+parser.add_argument('--noise', '--pose-noise', default=False, type=bool,
+                    metavar='PN', help='whether add pose noise')
 parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
                     help='momentum for sgd, alpha parameter for adam')
 parser.add_argument('--beta', default=0.999, type=float, metavar='M',
@@ -45,8 +43,7 @@ parser.add_argument('--weight-decay', '--wd', default=0, type=float,
                     metavar='W', help='weight decay')
 parser.add_argument('--print-freq', default=1, type=int,
                     metavar='N', help='print frequency')
-parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
-                    help='evaluate model on validation set')
+
 parser.add_argument('--pretrained-dps', dest='pretrained_dps',
                     default='',
                     metavar='PATH',

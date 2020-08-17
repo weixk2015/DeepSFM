@@ -16,28 +16,22 @@ from models import PSNet as PSNet
 from sequence_folders import SequenceFolder
 from utils import tensor2array, save_checkpoint, save_path_formatter, adjust_learning_rate
 
-parser = argparse.ArgumentParser(description='Structure from Motion Learner training on KITTI and CityScapes Dataset',
+parser = argparse.ArgumentParser(description='DeepSFM depth subnet train script',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
 parser.add_argument('data', metavar='DIR',
                     help='path to dataset')
-parser.add_argument('--dataset-format', default='sequential', metavar='STR',
-                    help='dataset format, stacked: stacked frames (from original TensorFlow code) \
-                    sequential: sequential folders (easier to convert to with a non KITTI/Cityscape dataset')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers')
-parser.add_argument('--epochs', default=100, type=int, metavar='N',
+parser.add_argument('--epochs', default=10, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--epoch-size', default=0, type=int, metavar='N',
                     help='manual epoch size (will match dataset size if not set)')
-parser.add_argument('-b', '--batch-size', default=3, type=int,
+parser.add_argument('-b', '--batch-size', default=6, type=int,
                     metavar='N', help='mini-batch size')
 parser.add_argument('--lr', '--learning-rate', default=4e-5, type=float,
                     metavar='LR', help='initial learning rate')
 parser.add_argument('--geo', '--geo-cost', default=True, type=bool,
                     metavar='GC', help='whether add geometry cost')
-parser.add_argument('--sn', '--sn-cost', default=False, type=bool,
-                    metavar='SN', help='whether add geometry cost')
 parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
                     help='momentum for sgd, alpha parameter for adam')
 parser.add_argument('--beta', default=0.999, type=float, metavar='M',
@@ -130,12 +124,11 @@ def main():
     print("=> creating model")
 
     depth_net = PSNet(args.nlabel, args.mindepth, add_geo_cost=args.geo,
-                   depth_augment=False, add_sn_cost=args.sn).cuda()
+                   depth_augment=False).cuda()
 
     if args.pretrained_dps:
         # for param in depth_net.feature_extraction.parameters():
         #     param.requires_grad = False
-
 
         print("=> using pre-trained weights for DPSNet")
         model_dict = depth_net.state_dict()

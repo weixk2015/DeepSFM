@@ -16,31 +16,26 @@ from demon_metrics import compute_motion_errors
 from models import PoseNet
 from pose_sequence_folders import SequenceFolder
 
-parser = argparse.ArgumentParser(description='Structure from Motion Learner training on KITTI and CityScapes Dataset',
+parser = argparse.ArgumentParser(description='DeepSFM pose subnet test script',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('data', metavar='DIR',
                     help='path to dataset')
-parser.add_argument('--dataset-format', default='sequential', metavar='STR',
-                    help='dataset format, stacked: stacked frames (from original TensorFlow code) \
-                    sequential: sequential folders (easier to convert to with a non KITTI/Cityscape dataset')
+
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers')
 parser.add_argument('--sequence-length', type=int, metavar='N', help='sequence length for training', default=2)
 
-parser.add_argument('-b', '--batch-size', default=1, type=int,  # 6
+parser.add_argument('-b', '--batch-size', default=1, type=int,  # 1
                     metavar='N', help='mini-batch size')
 parser.add_argument('--geo', '--geo-cost', default=True, type=bool,
                     metavar='GC', help='whether add geometry cost')
-parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
-                    help='evaluate model on validation set')
 parser.add_argument('--pretrained-dps', dest='pretrained_dps',
                     default='pose_checkpoint.pth.tar',
                     metavar='PATH',
                     help='path to pre-trained model')
 parser.add_argument('--seed', default=0, type=int, help='seed for random functions, and network initialization')
 parser.add_argument('--save', default="I0", type=str, help='save prefix')
-
 parser.add_argument('--ttype', default='test.txt', type=str, help='Text file indicates input data')
 parser.add_argument('-f', '--training-output-freq', type=int,
                     help='frequence for outputting dispnet outputs and warped imgs at training for all scales if 0 will not output',
@@ -52,11 +47,9 @@ parser.add_argument('--pose_init', default='demon', help='path to init pose')
 parser.add_argument('--depth_init', default='demon', help='path to init depth')
 
 n_iter = 0
-warnings.filterwarnings('ignore')
 
 
 # NOTE: test set for testing
-
 def main():
 	global n_iter
 	args = parser.parse_args()

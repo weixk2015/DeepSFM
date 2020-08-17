@@ -1,14 +1,9 @@
 from __future__ import print_function
 
-import cv2
-import torch
-import torch.nn as nn
 import torch.utils.data
-from torch.autograd import Variable
-import torch.nn.functional as F
-import math
-from models.submodule import *
+
 from inverse_warp import inverse_warp, depth_warp
+from models.submodule import *
 
 
 def convtext(in_planes, out_planes, kernel_size=3, stride=1, dilation=1):
@@ -20,12 +15,12 @@ def convtext(in_planes, out_planes, kernel_size=3, stride=1, dilation=1):
 
 
 class PSNet(nn.Module):
-    def __init__(self, nlabel, mindepth, add_geo_cost=False, depth_augment=False, add_sn_cost=False):
+    def __init__(self, nlabel, mindepth, add_geo_cost=False, depth_augment=False):
         super(PSNet, self).__init__()
         self.nlabel = nlabel
         self.mindepth = mindepth
         self.add_geo = add_geo_cost
-        self.add_sn = add_sn_cost
+
         self.depth_augment = depth_augment
         self.feature_extraction = feature_extraction()
 
