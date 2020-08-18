@@ -120,6 +120,9 @@ dataset/test
 │   │   0000.npy
 │   │   0001.npy  
 │   │    ...
+│   │   0000_demon.npy 
+│   │   0001_demon.npy  
+│   │    ...
 │   │   cam.txt
 │   │   poses.txt
 │   │   demon_poses.txt
