@@ -63,14 +63,18 @@ Training data preparation requires the following libraries and programs
 [Training data]
     
 ```
+# download training data
 bash download_traindata.sh
+# convert training data into training sequences
 python ./dataset/preparation/preparedata_train.py
 ```
 
 [Test data]
     
 ```
+# download testing data
 bash download_testdata.sh
+# convert testing data into testing sequences
 python ./dataset/preparation/preparedata_test.py
 ```
 
@@ -91,18 +95,18 @@ dataset/train
 │   val.txt    
 │
 └───scene0
-│   │   0000.jpg
+│   │   0000.jpg # input images of different views
 │   │   0001.jpg
 │   │    ...
-│   │   0000.npy
+│   │   0000.npy # ground truth depth maps of different views
 │   │   0001.npy  
 │   │    ...
-│   │   0000_demon.npy
+│   │   0000_demon.npy # DeMoN predicted depth maps(scaled) of different views
 │   │   0001_demon.npy  
 │   │    ...
-│   │   cam.txt
-│   │   poses.txt
-│   │   demon_poses.txt
+│   │   cam.txt # camera intrinsics
+│   │   poses.txt # camera pose of each view
+│   │   demon_poses.txt # DeMoN predicted camera pose(scaled) of each view
 └───scene1
     ...
 
@@ -136,6 +140,7 @@ The training process and the implementation
 
 
 ```
+# Train the depth subnet. For values of mindepth, nlabel and other parameters, please refer to DPSNet(https://github.com/sunghoonim/DPSNet)
 python train.py ./dataset/train/ --mindepth 0.5 --nlabel 64 --pose_init demon --depth_init demon 
 ```
 - pose_init: the prefix of pose txt file. The network will use **"%s_poses.txt" % args.pose_init** 
@@ -150,8 +155,12 @@ The architecture and implementation
  of the pose subnet is similar to depth subnet. 
 
 ```
+# Train the pose subnet. 
+# [-std_tr, std_tr] and [-std_rot, std_rot] are the sampling range of pose cost volume
 python pose_train.py ./dataset/train/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init demon --depth_init demon 
 ``` 
+- nlabel: the bin num along each direction for sampling
+
 - pose_init: the prefix of pose txt file. The network will use **"%s_poses.txt" % args.pose_init** 
 as the initial pose file. If not set, **poses.txt** will be adopted.
 
@@ -162,6 +171,7 @@ as the initial depth file of image **0000.jpg**. If not set, **0000.npy** will b
 ## Test
 #### Depth 
 ```
+# Test the depth subnet. For values of sequence-length, pretrained-dps and other parameters, please refer to DPSNet(https://github.com/sunghoonim/DPSNet)
 python test.py ./dataset/test/ --sequence-length 2  --pretrained-dps depth.pth.tar --pose_init demon --depth_init demon --save I0
 ```
 - pose_init: the prefix of pose txt file. The network will use **"%s_poses.txt" % args.pose_init** 
@@ -176,6 +186,7 @@ the predicted depth will not be saved.
 
 #### Pose
 ```
+# Test the pose subnet. For values of sequence-length, pretrained-dps and other parameters, please refer to DPSNet(https://github.com/sunghoonim/DPSNet)
 python pose_test.py ./dataset/test/ --sequence-length 2  --pretrained-dps pose.pth.tar --pose_init demon --depth_init demon --save I0
 ```
 - pose_init: the prefix of pose txt file. The network will use **"%s_poses.txt" % args.pose_init** 
