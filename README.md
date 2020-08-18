@@ -216,4 +216,4 @@ The pretrained models can be downloaded at [Google drive](https://drive.google.c
 
 ## Acknowledgments
 
-the implementation codes borrows heavily from [DPSNet](https://github.com/sunghoonim/DPSNet). Thanks for the sharing.
+The implementation codes borrows heavily from [DPSNet](https://github.com/sunghoonim/DPSNet). Thanks for the sharing.
