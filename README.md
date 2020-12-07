@@ -204,12 +204,12 @@ the predicted pose will not be saved.
 
 To run iteratively, change the value of pose_init, depth_init and save.
 ```
-python test.py ./dataset/train/ --mindepth 0.5 --nlabel 64 --pose_init demon --depth_init demon --save I0
-python pose_test.py ./dataset/train/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init demon --depth_init demon --save I0
-python test.py ./dataset/train/ --mindepth 0.5 --nlabel 64 --pose_init I0 --depth_init I0 --save I1
-python pose_test.py ./dataset/train/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init I0 --depth_init I0 --save I1
-python test.py ./dataset/train/ --mindepth 0.5 --nlabel 64 --pose_init I1 --depth_init I1 --save I2
-python pose_test.py ./dataset/train/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init I1 --depth_init I1 --save I2
+python test.py ./dataset/test/ --mindepth 0.5 --nlabel 64 --pose_init demon --depth_init demon --save I0
+python pose_test.py ./dataset/test/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init demon --depth_init demon --save I0
+python test.py ./dataset/test/ --mindepth 0.5 --nlabel 64 --pose_init I0 --depth_init I0 --save I1
+python pose_test.py ./dataset/test/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init I0 --depth_init I0 --save I1
+python test.py ./dataset/test/ --mindepth 0.5 --nlabel 64 --pose_init I1 --depth_init I1 --save I2
+python pose_test.py ./dataset/test/ --std_tr 0.27 --std_rot 0.12 --nlabel 10 --pose_init I1 --depth_init I1 --save I2
 ...
 ``` 
 The pretrained models can be downloaded at [Google drive](https://drive.google.com/drive/folders/1GGzFKaNV39M9Z8XlqMIPuoCsvpA-wgVY?usp=sharing).
